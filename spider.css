@@ -1,0 +1,84 @@
+/* Hallmark · waive 39b · spider column is a full-column game control · the 238px height is the playable card lane */
+
+.spider-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-block: var(--space-lg);
+}
+
+.spider-board {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(4.8rem, 1fr));
+  gap: var(--space-2xs);
+  min-width: 50rem;
+}
+
+.spider-column {
+  position: relative;
+  height: 27rem;
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+  cursor: pointer;
+}
+
+.spider-card {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(var(--card-index) * var(--card-step, 6.25%));
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 4.25rem;
+  padding-block-start: var(--space-2xs);
+  border: var(--rule-hair) solid var(--color-ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1;
+}
+
+.spider-card.is-face-down {
+  border-color: var(--color-paper);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.spider-card:not(.is-face-down) b {
+  font-size: var(--text-md);
+}
+
+.spider-card.is-face-down b {
+  display: none;
+}
+
+.spider-card.is-selected {
+  outline: var(--rule-box) solid var(--color-accent-3);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+.spider-card--red {
+  color: var(--color-accent-2-deep);
+}
+
+.spider-card--black {
+  color: var(--color-ink);
+}
+
+.button.is-suggested {
+  outline: var(--rule-box) solid var(--color-accent-3);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+@media (max-width: 40rem) {
+  .spider-scroll {
+    margin-inline: calc(-1 * var(--space-md));
+  }
+
+  .spider-board {
+    grid-template-columns: repeat(10, 4.8rem);
+    width: max-content;
+    padding-inline: var(--space-md);
+  }
+}

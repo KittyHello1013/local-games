@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地 2048 数字合并游戏，支持键盘、滑动、撤销和自动存档。">
+    <title>2048｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./2048.css">
+    <script src="./game-tracking.js" defer></script>
+    <script src="./completion.js" defer></script>
+    <script src="./2048-logic.js" defer></script>
+    <script src="./2048-app.js" defer></script>
+  </head>
+  <body data-game-id="2048">
+    <a class="skip-link" href="#game">跳到 2048 棋盘</a>
+
+    <header class="topbar">
+      <div class="app-shell topbar__inner">
+        <a class="brand" href="./index.html" aria-label="返回本地游戏集首页">
+          <span class="brand__mark" aria-hidden="true">01</span>
+          <span>本地游戏集</span>
+        </a>
+        <nav class="catalog" aria-label="当前位置">
+          <a href="./index.html">游戏目录</a>
+          <span aria-hidden="true">/</span>
+          <strong>2048</strong>
+        </nav>
+        <p class="offline-note">
+          <span>离线可玩</span>
+          <span>免费</span>
+        </p>
+      </div>
+    </header>
+
+    <main id="game" class="app-shell game-layout game-layout--2048">
+      <section class="playfield playfield--2048" aria-labelledby="game-title">
+        <header class="playfield__head">
+          <div class="title-block">
+            <h1 id="game-title">2048</h1>
+            <p class="lead">滑动数字，合出 2048。</p>
+          </div>
+          <fieldset class="difficulty">
+            <legend>难度</legend>
+            <div class="difficulty__options">
+              <input type="radio" name="2048-difficulty" id="target-512" value="starter">
+              <label for="target-512">入门</label>
+              <input type="radio" name="2048-difficulty" id="target-1024" value="standard">
+              <label for="target-1024">标准</label>
+              <input type="radio" name="2048-difficulty" id="target-2048" value="expert" checked>
+              <label for="target-2048">进阶</label>
+            </div>
+          </fieldset>
+        </header>
+
+        <div class="board-head">
+          <p id="board-2048-status" class="board-status">游戏进行中</p>
+          <p class="board-size">4 × 4 / 目标 <span id="target-number">2048</span></p>
+        </div>
+
+        <div class="board-2048-wrap">
+          <div
+            id="board-2048"
+            class="board-2048"
+            role="grid"
+            tabindex="0"
+            aria-label="2048 棋盘，使用方向键或滑动操作"
+            aria-describedby="board-2048-help"
+          ></div>
+        </div>
+
+        <p id="board-2048-help" class="visually-hidden">
+          使用方向键或 W A S D 移动数字，滑动屏幕也可以操作。相同数字相碰会合并。
+        </p>
+
+        <div class="board-foot">
+          <p>相同数字相碰后会合并。</p>
+          <p>每次有效移动后生成一个新数字。</p>
+        </div>
+      </section>
+
+      <aside class="console" aria-label="2048 控制台">
+        <section class="console__section console__section--status" aria-labelledby="status-title">
+          <div class="console__head">
+            <h2 id="status-title">局面</h2>
+            <span id="game-2048-state">进行中</span>
+          </div>
+
+          <dl class="metrics">
+            <div class="metric">
+              <dt>当前得分</dt>
+              <dd id="score" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>最高分</dt>
+              <dd id="best-score" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>步数</dt>
+              <dd id="moves" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>最大数字</dt>
+              <dd id="max-tile" class="figure">2</dd>
+            </div>
+          </dl>
+
+          <p id="game-2048-feedback" class="feedback" role="status" aria-live="polite">
+            使用方向键或滑动棋盘开始游戏。
+          </p>
+
+          <div class="console__actions">
+            <button id="new-game" class="button button--primary" type="button">新游戏</button>
+            <button id="continue-game" class="button button--secondary" type="button" hidden>
+              继续挑战
+            </button>
+            <button id="undo-move" class="button button--secondary" type="button" disabled>
+              撤销一步
+            </button>
+          </div>
+        </section>
+
+        <section class="console__section" aria-labelledby="guide-title">
+          <h2 id="guide-title">操作</h2>
+          <dl class="shortcuts">
+            <div>
+              <dt>移动</dt>
+              <dd>方向键或 W A S D</dd>
+            </div>
+            <div>
+              <dt>触屏</dt>
+              <dd>向四个方向滑动</dd>
+            </div>
+            <div>
+              <dt>撤销</dt>
+              <dd>Z 或按钮</dd>
+            </div>
+            <div>
+              <dt>新局</dt>
+              <dd>R</dd>
+            </div>
+          </dl>
+
+          <details class="rules">
+            <summary>游戏规则</summary>
+            <p>相同数字相碰时合并成两倍的数字。</p>
+            <p>每次有效移动后，会随机出现一个 2 或 4。</p>
+            <p>棋盘填满且没有相邻相同数字时，本局结束。</p>
+          </details>
+        </section>
+
+        <section class="console__section console__section--note" aria-labelledby="local-title">
+          <h2 id="local-title">自动存档</h2>
+          <p>当前棋盘、得分和最高分只保存在这台电脑的浏览器里，刷新页面后会继续上次进度。</p>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="app-shell footer__inner">
+        <p>本地游戏集 / 02 2048</p>
+        <p>无需账号，无需联网。</p>
+      </div>
+    </footer>
+
+    <noscript>
+      <p class="noscript">2048 需要 JavaScript 才能生成棋盘和处理移动。</p>
+    </noscript>
+  </body>
+</html>

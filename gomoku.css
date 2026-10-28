@@ -1,0 +1,137 @@
+.game-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: flex-end;
+}
+
+.gomoku-wrap {
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-lg);
+}
+
+.gomoku-board {
+  display: grid;
+  width: min(100%, 40rem);
+  aspect-ratio: 1;
+  border: var(--rule-box) solid var(--color-ink);
+  background: var(--color-paper-3);
+  gap: 0;
+}
+
+.gomoku-cell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gomoku-cell::before,
+.gomoku-cell::after {
+  position: absolute;
+  background: var(--color-rule);
+  content: "";
+}
+
+.gomoku-cell::before {
+  inset-inline: 0;
+  inset-block-start: 50%;
+  height: var(--rule-hair);
+}
+
+.gomoku-cell::after {
+  inset-block: 0;
+  inset-inline-start: 50%;
+  width: var(--rule-hair);
+}
+
+.gomoku-cell.is-black,
+.gomoku-cell.is-white {
+  z-index: var(--z-base);
+}
+
+.gomoku-cell.is-black::before,
+.gomoku-cell.is-white::before {
+  inset: 17%;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  background: var(--color-ink);
+}
+
+.gomoku-cell.is-black::after,
+.gomoku-cell.is-white::after {
+  display: none;
+}
+
+.gomoku-cell.is-white::before {
+  border: var(--rule-bar) solid var(--color-ink);
+  background: var(--color-paper);
+}
+
+.gomoku-cell.is-win::before {
+  background: var(--color-accent-2-deep);
+}
+
+.gomoku-cell.is-last::before {
+  outline: var(--rule-box) solid var(--color-accent-3);
+  outline-offset: 2px;
+  animation: stone-drop 190ms var(--ease-out);
+}
+
+.move-history {
+  display: grid;
+  gap: var(--space-xs);
+  max-height: 15rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style-position: inside;
+}
+
+.move-history li {
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+}
+
+.move-history li:last-child {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+@keyframes stone-drop {
+  from {
+    opacity: 0.35;
+    transform: scale(1.45);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gomoku-cell:focus-visible {
+  outline: var(--rule-box) solid var(--color-focus);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+@media (max-width: 40rem) {
+  .gomoku-wrap {
+    width: calc(100% + (2 * var(--space-md)));
+    margin-inline: calc(-1 * var(--space-md));
+  }
+
+  .gomoku-board {
+    width: 100%;
+    border-inline-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gomoku-cell.is-last::before {
+    animation: none;
+  }
+}

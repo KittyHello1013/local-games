@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地五子棋，包含三种棋盘难度和电脑对手。">
+    <title>五子棋｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css"><link rel="stylesheet" href="./base.css"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./gomoku.css">
+    <script src="./game-tracking.js" defer></script><script src="./completion.js" defer></script><script src="./gomoku-logic.js" defer></script><script src="./gomoku-app.js" defer></script>
+  </head>
+  <body data-game-id="gomoku">
+    <a class="skip-link" href="#game">跳到五子棋</a>
+    <header class="topbar"><div class="app-shell topbar__inner"><a class="brand" href="./index.html"><span class="brand__mark">01</span><span>本地游戏集</span></a><nav class="catalog"><a href="./index.html">游戏目录</a><span>/</span><strong>五子棋</strong></nav><p class="offline-note"><span>离线可玩</span><span>免费</span></p></div></header>
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head"><div class="title-block"><h1 id="game-title">五子棋</h1><p id="gomoku-lead" class="lead">你执黑棋，先连成五子。</p></div>
+          <div class="game-options">
+            <fieldset class="difficulty"><legend>模式</legend><div class="difficulty__options">
+              <input type="radio" name="gomoku-mode" id="gomoku-ai" value="ai" checked><label for="gomoku-ai">人机</label>
+              <input type="radio" name="gomoku-mode" id="gomoku-pvp" value="pvp"><label for="gomoku-pvp">双人</label>
+            </div></fieldset>
+            <fieldset class="difficulty"><legend>电脑强度</legend><div class="difficulty__options">
+              <input type="radio" name="gomoku-difficulty" id="gomoku-easy" value="easy" checked><label for="gomoku-easy">入门</label>
+              <input type="radio" name="gomoku-difficulty" id="gomoku-standard" value="standard"><label for="gomoku-standard">标准</label>
+              <input type="radio" name="gomoku-difficulty" id="gomoku-hard" value="hard"><label for="gomoku-hard">进阶</label>
+            </div></fieldset>
+          </div>
+        </header>
+        <div class="board-head"><p id="gomoku-status" class="board-status">轮到你落子</p><p class="board-size">15 × 15 / 黑棋先行</p></div>
+        <div class="gomoku-wrap"><div id="gomoku-board" class="gomoku-board" role="grid"></div></div>
+        <div class="board-foot"><p>点击交叉点落子。</p><p>横、竖或斜线连成五子获胜。</p></div>
+      </section>
+      <aside class="console">
+        <section class="console__section console__section--status">
+          <div class="console__head"><h2>局面</h2><span id="gomoku-state">进行中</span></div>
+          <dl class="metrics">
+            <div class="metric"><dt>总步数</dt><dd id="gomoku-moves" class="figure">0</dd></div>
+            <div class="metric"><dt>黑棋</dt><dd id="gomoku-black" class="figure">0</dd></div>
+            <div class="metric"><dt>白棋</dt><dd id="gomoku-white" class="figure">0</dd></div>
+            <div class="metric"><dt>用时</dt><dd id="gomoku-timer" class="figure">00:00</dd></div>
+          </dl>
+          <p id="gomoku-feedback" class="feedback" role="status" aria-live="polite">你执黑先行，连成五子获胜。</p>
+          <div class="console__actions"><button id="gomoku-new" class="button button--primary" type="button">新一局</button><button id="gomoku-undo" class="button button--secondary" type="button" disabled>撤销回合</button></div>
+        </section>
+        <section class="console__section"><h2>操作</h2><dl class="shortcuts"><div><dt>落子</dt><dd>点击交叉点</dd></div><div><dt>模式</dt><dd>人机或本地双人</dd></div><div><dt>撤销</dt><dd>U</dd></div><div><dt>新局</dt><dd>R</dd></div></dl></section>
+        <section class="console__section"><h2>落子记录</h2><ol id="gomoku-history" class="move-history"><li>尚未落子</li></ol></section>
+      </aside>
+    </main>
+    <footer class="footer"><div class="app-shell footer__inner"><p>本地游戏集 / 08 五子棋</p><p>无需账号，无需联网。</p></div></footer>
+  </body>
+</html>

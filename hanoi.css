@@ -1,0 +1,112 @@
+/* Hallmark · waive 39b · hanoi peg is a full-column game control · the 464px height is the playable peg surface */
+
+.hanoi-stage {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xs);
+  width: min(100%, 48rem);
+  min-height: 32rem;
+  margin-inline: auto;
+  padding-block: var(--space-lg);
+}
+
+.hanoi-peg {
+  position: relative;
+  min-width: 0;
+  padding: 0;
+  border: var(--rule-hair) solid transparent;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.hanoi-peg:hover {
+  border-color: var(--color-rule);
+  background: var(--color-paper);
+}
+
+.hanoi-peg:focus-visible {
+  outline: var(--rule-box) solid var(--color-focus);
+  outline-offset: var(--space-2xs);
+}
+
+.hanoi-peg.is-selected {
+  border-color: var(--color-accent);
+  background: var(--color-paper);
+}
+
+.hanoi-peg__rod {
+  position: absolute;
+  inset-block: var(--space-lg) var(--space-xl);
+  inset-inline-start: calc(50% - 1px);
+  width: var(--rule-bar);
+  background: var(--color-ink);
+}
+
+.hanoi-peg::after {
+  position: absolute;
+  inset-inline: 4%;
+  inset-block-end: var(--space-lg);
+  height: var(--rule-box);
+  background: var(--color-ink);
+  content: "";
+}
+
+.hanoi-peg__stack {
+  position: absolute;
+  inset-inline: 4%;
+  inset-block-end: calc(var(--space-lg) + var(--rule-box));
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.hanoi-disk {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  height: clamp(2rem, 7cqi, 3rem);
+  border: var(--rule-hair) solid var(--color-ink);
+  color: var(--color-ink);
+  font-family: var(--font-outlier);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.hanoi-disk--0 {
+  background: var(--color-accent-3);
+}
+
+.hanoi-disk--1 {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.hanoi-disk--2 {
+  background: var(--color-paper-2);
+}
+
+.hanoi-disk.is-top {
+  outline: var(--rule-bar) solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+@media (max-width: 60rem) {
+  .hanoi-stage {
+    min-height: 27rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .hanoi-stage {
+    min-height: 23rem;
+    padding-block: var(--space-md);
+  }
+
+  .hanoi-disk {
+    height: 26px;
+    font-size: var(--text-xs);
+  }
+}

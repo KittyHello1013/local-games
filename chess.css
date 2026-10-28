@@ -1,0 +1,80 @@
+.chess-wrap {
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-lg);
+}
+
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  width: min(100%, 34rem);
+  aspect-ratio: 1;
+  border: var(--rule-box) solid var(--color-ink);
+}
+
+.chess-square {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  cursor: pointer;
+}
+
+.chess-square.is-light {
+  background: var(--color-paper-3);
+}
+
+.chess-square.is-dark {
+  background: var(--color-paper-2);
+}
+
+.chess-square.is-target::after {
+  width: 24%;
+  height: 24%;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+}
+
+.chess-square.is-selected {
+  outline: var(--rule-box) solid var(--color-accent-3);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+.chess-square:focus-visible {
+  outline: var(--rule-box) solid var(--color-focus);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+.chess-piece {
+  position: absolute;
+  font-size: clamp(var(--text-xl), 8cqi, var(--text-3xl));
+  line-height: 1;
+  pointer-events: none;
+  -webkit-text-stroke: 1.2px var(--color-ink);
+}
+
+.chess-board {
+  container-type: inline-size;
+}
+
+.chess-piece.is-w {
+  color: var(--color-paper);
+}
+
+.chess-piece.is-b {
+  color: var(--color-ink);
+}
+
+@media (max-width: 40rem) {
+  .chess-wrap {
+    width: calc(100% + (2 * var(--space-md)));
+    margin-inline: calc(-1 * var(--space-md));
+  }
+
+  .chess-board {
+    width: 100%;
+    border-inline-width: 0;
+  }
+}

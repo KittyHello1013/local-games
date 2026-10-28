@@ -1,0 +1,4 @@
+.hallmark/
+.tools/
+.build/
+node_modules/

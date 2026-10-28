@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地汉诺塔游戏，包含三档难度、计时、撤销和最佳步数。">
+    <title>汉诺塔｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./hanoi.css">
+    <script src="./game-tracking.js" defer></script>
+    <script src="./completion.js" defer></script>
+    <script src="./hanoi-logic.js" defer></script>
+    <script src="./hanoi-app.js" defer></script>
+  </head>
+  <body data-game-id="hanoi">
+    <a class="skip-link" href="#game">跳到汉诺塔</a>
+
+    <header class="topbar">
+      <div class="app-shell topbar__inner">
+        <a class="brand" href="./index.html" aria-label="返回本地游戏集首页">
+          <span class="brand__mark" aria-hidden="true">01</span>
+          <span>本地游戏集</span>
+        </a>
+        <nav class="catalog" aria-label="当前位置">
+          <a href="./index.html">游戏目录</a>
+          <span aria-hidden="true">/</span>
+          <strong>汉诺塔</strong>
+        </nav>
+        <p class="offline-note">
+          <span>离线可玩</span>
+          <span>免费</span>
+        </p>
+      </div>
+    </header>
+
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head">
+          <div class="title-block">
+            <h1 id="game-title">汉诺塔</h1>
+            <p class="lead">把所有圆盘移到最右柱。</p>
+          </div>
+
+          <fieldset class="difficulty">
+            <legend>难度</legend>
+            <div class="difficulty__options">
+              <input type="radio" name="hanoi-difficulty" id="hanoi-3" value="3" checked>
+              <label for="hanoi-3">入门</label>
+              <input type="radio" name="hanoi-difficulty" id="hanoi-5" value="5">
+              <label for="hanoi-5">标准</label>
+              <input type="radio" name="hanoi-difficulty" id="hanoi-7" value="7">
+              <label for="hanoi-7">进阶</label>
+            </div>
+          </fieldset>
+        </header>
+
+        <div class="board-head">
+          <p id="hanoi-status" class="board-status">准备开始</p>
+          <p id="hanoi-size" class="board-size">3 根柱 / 3 个圆盘</p>
+        </div>
+
+        <div id="hanoi-stage" class="hanoi-stage" aria-label="汉诺塔柱子"></div>
+
+        <div class="board-foot">
+          <p>一次只能移动一个圆盘。</p>
+          <p>大圆盘不能放在小圆盘上。</p>
+        </div>
+      </section>
+
+      <aside class="console" aria-label="汉诺塔控制台">
+        <section class="console__section console__section--status" aria-labelledby="status-title">
+          <div class="console__head">
+            <h2 id="status-title">局面</h2>
+            <span id="hanoi-state">待开始</span>
+          </div>
+
+          <dl class="metrics">
+            <div class="metric">
+              <dt>移动步数</dt>
+              <dd id="hanoi-moves" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>最少步数</dt>
+              <dd id="hanoi-optimal" class="figure">7</dd>
+            </div>
+            <div class="metric">
+              <dt>用时</dt>
+              <dd id="hanoi-timer" class="figure">00:00</dd>
+            </div>
+            <div class="metric">
+              <dt>本档最佳</dt>
+              <dd id="hanoi-best" class="figure">暂无</dd>
+            </div>
+          </dl>
+
+          <p id="hanoi-feedback" class="feedback" role="status" aria-live="polite">
+            点击有圆盘的柱子，再点击目标柱。
+          </p>
+
+          <div class="console__actions">
+            <button id="hanoi-new" class="button button--primary" type="button">新一局</button>
+            <button id="hanoi-undo" class="button button--secondary" type="button" disabled>撤销一步</button>
+          </div>
+        </section>
+
+        <section class="console__section" aria-labelledby="guide-title">
+          <h2 id="guide-title">操作</h2>
+          <dl class="shortcuts">
+            <div>
+              <dt>选择</dt>
+              <dd>点击柱子或 Enter</dd>
+            </div>
+            <div>
+              <dt>切换柱</dt>
+              <dd>左右方向键</dd>
+            </div>
+            <div>
+              <dt>撤销</dt>
+              <dd>U 或按钮</dd>
+            </div>
+            <div>
+              <dt>新局</dt>
+              <dd>R</dd>
+            </div>
+          </dl>
+          <details class="rules">
+            <summary>游戏规则</summary>
+            <p>移动时先选中起点柱，再选中目标柱。</p>
+            <p>只有柱子顶部的圆盘可以移动。</p>
+            <p>最少步数等于 2 的圆盘数次方减一。</p>
+          </details>
+        </section>
+
+        <section class="console__section console__section--note" aria-labelledby="local-title">
+          <h2 id="local-title">自动存档</h2>
+          <p>当前局面和每档最佳步数只保存在这台电脑的浏览器里。</p>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="app-shell footer__inner">
+        <p>本地游戏集 / 03 汉诺塔</p>
+        <p>无需账号，无需联网。</p>
+      </div>
+    </footer>
+  </body>
+</html>

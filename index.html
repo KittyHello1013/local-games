@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="本地游戏集首页，浏览已安装游戏并直接开始游玩。">
+    <title>游戏目录｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./home.css">
+    <script src="./catalog.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#library">跳到游戏目录</a>
+
+    <header class="topbar">
+      <div class="app-shell topbar__inner">
+        <a class="brand" href="./index.html" aria-label="本地游戏集首页">
+          <span class="brand__mark" aria-hidden="true">01</span>
+          <span>本地游戏集</span>
+        </a>
+        <nav class="catalog" aria-label="当前位置">
+          <strong>游戏目录</strong>
+        </nav>
+        <p class="offline-note">
+          <span>离线可玩</span>
+          <span>免费</span>
+        </p>
+      </div>
+    </header>
+
+    <main id="library" class="app-shell library">
+      <header class="library__head">
+        <div>
+          <h1>游戏目录</h1>
+          <p class="lead">选择一款游戏，直接开始。</p>
+        </div>
+        <p class="library__count">
+          已安装
+          <strong id="game-count">0</strong>
+          款
+        </p>
+      </header>
+
+      <section class="game-list" aria-labelledby="game-list-title">
+        <h2 id="game-list-title" class="visually-hidden">已安装游戏</h2>
+        <div class="launcher-zone">
+          <div id="game-grid" class="game-grid"></div>
+        </div>
+        <noscript>
+          <p class="no-script">游戏目录需要 JavaScript 才能显示。</p>
+          <a class="button button--primary" href="./minesweeper.html">打开扫雷</a>
+        </noscript>
+        <p id="catalog-status" class="visually-hidden" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="app-shell footer__inner">
+        <p>本地游戏集</p>
+        <p>无需账号，无需联网。</p>
+      </div>
+    </footer>
+
+    <template id="game-card-template">
+      <a class="game-launcher">
+        <h3 class="game-launcher__name"></h3>
+        <span class="game-launcher__tile" aria-hidden="true"></span>
+      </a>
+    </template>
+  </body>
+</html>

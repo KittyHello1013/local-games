@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地蜘蛛纸牌，支持单花色、双花色和四花色。">
+    <title>蜘蛛纸牌｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./spider.css">
+    <script src="./game-tracking.js" defer></script>
+    <script src="./completion.js" defer></script>
+    <script src="./spider-logic.js" defer></script>
+    <script src="./spider-app.js" defer></script>
+  </head>
+  <body data-game-id="spider">
+    <a class="skip-link" href="#game">跳到蜘蛛纸牌</a>
+    <header class="topbar">
+      <div class="app-shell topbar__inner">
+        <a class="brand" href="./index.html" aria-label="返回本地游戏集首页">
+          <span class="brand__mark" aria-hidden="true">01</span><span>本地游戏集</span>
+        </a>
+        <nav class="catalog" aria-label="当前位置">
+          <a href="./index.html">游戏目录</a><span aria-hidden="true">/</span><strong>蜘蛛纸牌</strong>
+        </nav>
+        <p class="offline-note"><span>离线可玩</span><span>免费</span></p>
+      </div>
+    </header>
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head">
+          <div class="title-block"><h1 id="game-title">蜘蛛纸牌</h1><p class="lead">收走八组从 K 到 A 的同花色序列。</p></div>
+          <fieldset class="difficulty">
+            <legend>难度</legend>
+            <div class="difficulty__options">
+              <input type="radio" name="spider-difficulty" id="spider-1" value="1" checked><label for="spider-1">单花色</label>
+              <input type="radio" name="spider-difficulty" id="spider-2" value="2"><label for="spider-2">双花色</label>
+              <input type="radio" name="spider-difficulty" id="spider-4" value="4"><label for="spider-4">四花色</label>
+            </div>
+          </fieldset>
+        </header>
+        <p id="spider-status" class="visually-hidden">游戏进行中</p>
+        <div class="spider-scroll">
+          <div id="spider-board" class="spider-board" aria-label="蜘蛛纸牌桌面"></div>
+        </div>
+        <div class="board-foot"><p>点击正面连续牌，再点击目标列。</p><p>空格可以放任意连续序列。</p></div>
+      </section>
+      <aside class="console" aria-label="蜘蛛纸牌控制台">
+        <section class="console__section console__section--status" aria-labelledby="status-title">
+          <div class="console__head"><h2 id="status-title">局面</h2><span id="spider-state">进行中</span></div>
+          <dl class="metrics">
+            <div class="metric"><dt>完成组数</dt><dd id="spider-completed" class="figure">0 / 8</dd></div>
+            <div class="metric"><dt>移动步数</dt><dd id="spider-moves" class="figure">0</dd></div>
+            <div class="metric"><dt>剩余牌</dt><dd id="spider-remaining" class="figure">50</dd></div>
+            <div class="metric"><dt>用时</dt><dd id="spider-timer" class="figure">00:00</dd></div>
+          </dl>
+          <p id="spider-feedback" class="feedback" role="status" aria-live="polite">选择正面牌，移到合适的列。</p>
+          <div class="console__actions">
+            <button id="spider-stock" class="button button--primary" type="button">发牌</button>
+            <button id="spider-undo" class="button button--secondary" type="button" disabled>撤销一步</button>
+            <button id="spider-new" class="button button--secondary" type="button">新一局</button>
+          </div>
+        </section>
+        <section class="console__section" aria-labelledby="guide-title">
+          <h2 id="guide-title">规则</h2>
+          <dl class="shortcuts">
+            <div><dt>接牌</dt><dd>比目标牌大 1</dd></div>
+            <div><dt>收牌</dt><dd>K 到 A 同花色</dd></div>
+            <div><dt>发牌</dt><dd>每列至少一张</dd></div>
+            <div><dt>快捷键</dt><dd>U 撤销，R 新局</dd></div>
+          </dl>
+        </section>
+      </aside>
+    </main>
+    <footer class="footer"><div class="app-shell footer__inner"><p>本地游戏集 / 06 蜘蛛纸牌</p><p>无需账号，无需联网。</p></div></footer>
+  </body>
+</html>

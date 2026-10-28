@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地数独游戏，包含三档难度、唯一解题目、提示和自动存档。">
+    <title>数独｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./sudoku.css">
+    <script src="./game-tracking.js" defer></script>
+    <script src="./completion.js" defer></script>
+    <script src="./sudoku-logic.js" defer></script>
+    <script src="./sudoku-app.js" defer></script>
+  </head>
+  <body data-game-id="sudoku">
+    <a class="skip-link" href="#game">跳到数独棋盘</a>
+
+    <header class="topbar">
+      <div class="app-shell topbar__inner">
+        <a class="brand" href="./index.html" aria-label="返回本地游戏集首页">
+          <span class="brand__mark" aria-hidden="true">01</span>
+          <span>本地游戏集</span>
+        </a>
+        <nav class="catalog" aria-label="当前位置">
+          <a href="./index.html">游戏目录</a>
+          <span aria-hidden="true">/</span>
+          <strong>数独</strong>
+        </nav>
+        <p class="offline-note">
+          <span>离线可玩</span>
+          <span>免费</span>
+        </p>
+      </div>
+    </header>
+
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head">
+          <div class="title-block">
+            <h1 id="game-title">数独</h1>
+            <p class="lead">每行、每列和每宫填入 1 到 9。</p>
+          </div>
+
+          <fieldset class="difficulty">
+            <legend>难度</legend>
+            <div class="difficulty__options">
+              <input type="radio" name="sudoku-difficulty" id="sudoku-easy" value="easy" checked>
+              <label for="sudoku-easy">入门</label>
+              <input type="radio" name="sudoku-difficulty" id="sudoku-standard" value="standard">
+              <label for="sudoku-standard">标准</label>
+              <input type="radio" name="sudoku-difficulty" id="sudoku-hard" value="hard">
+              <label for="sudoku-hard">挑战</label>
+            </div>
+          </fieldset>
+        </header>
+
+        <div class="board-head">
+          <p id="sudoku-status" class="board-status">游戏进行中</p>
+          <p class="board-size">9 × 9 / 唯一解</p>
+        </div>
+
+        <div class="sudoku-board-wrap">
+          <div id="sudoku-board" class="sudoku-board" role="grid" aria-label="数独棋盘"></div>
+        </div>
+
+        <div class="number-pad" aria-label="数字输入">
+          <button type="button" class="sudoku-key" data-number="1">1</button>
+          <button type="button" class="sudoku-key" data-number="2">2</button>
+          <button type="button" class="sudoku-key" data-number="3">3</button>
+          <button type="button" class="sudoku-key" data-number="4">4</button>
+          <button type="button" class="sudoku-key" data-number="5">5</button>
+          <button type="button" class="sudoku-key" data-number="6">6</button>
+          <button type="button" class="sudoku-key" data-number="7">7</button>
+          <button type="button" class="sudoku-key" data-number="8">8</button>
+          <button type="button" class="sudoku-key" data-number="9">9</button>
+          <button type="button" class="sudoku-key" data-number="0">清除</button>
+        </div>
+
+        <div class="board-foot">
+          <p>深色数字是题目给定值。</p>
+          <p>方向键移动，数字键填写。</p>
+        </div>
+      </section>
+
+      <aside class="console" aria-label="数独控制台">
+        <section class="console__section console__section--status" aria-labelledby="status-title">
+          <div class="console__head">
+            <h2 id="status-title">局面</h2>
+            <span id="sudoku-state">进行中</span>
+          </div>
+
+          <dl class="metrics">
+            <div class="metric">
+              <dt>已填格数</dt>
+              <dd id="sudoku-filled" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>错误次数</dt>
+              <dd id="sudoku-mistakes" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>用时</dt>
+              <dd id="sudoku-timer" class="figure">00:00</dd>
+            </div>
+            <div class="metric">
+              <dt>本档最佳</dt>
+              <dd id="sudoku-best" class="figure">暂无</dd>
+            </div>
+          </dl>
+
+          <p id="sudoku-feedback" class="feedback" role="status" aria-live="polite">
+            选择一个空格，再填写数字。
+          </p>
+
+          <div class="console__actions">
+            <button id="sudoku-new" class="button button--primary" type="button">新题目</button>
+            <button id="sudoku-hint" class="button button--secondary" type="button">提示一格</button>
+            <button id="sudoku-reset" class="button button--secondary" type="button" disabled>重新开始本题</button>
+          </div>
+        </section>
+
+        <section class="console__section" aria-labelledby="guide-title">
+          <h2 id="guide-title">操作</h2>
+          <dl class="shortcuts">
+            <div>
+              <dt>选择</dt>
+              <dd>点击格子</dd>
+            </div>
+            <div>
+              <dt>填写</dt>
+              <dd>数字键 1 到 9</dd>
+            </div>
+            <div>
+              <dt>清除</dt>
+              <dd>Backspace 或 Delete</dd>
+            </div>
+            <div>
+              <dt>提示</dt>
+              <dd>H</dd>
+            </div>
+          </dl>
+          <details class="rules">
+            <summary>游戏规则</summary>
+            <p>每一行、每一列和每个 3×3 宫都必须包含 1 到 9。</p>
+            <p>给定数字不能修改。填错的数字会记录在错误次数中。</p>
+            <p>所有数字都填对后，本局自动完成。</p>
+          </details>
+        </section>
+
+        <section class="console__section console__section--note" aria-labelledby="local-title">
+          <h2 id="local-title">唯一解题目</h2>
+          <p>题目在浏览器本地生成并验证唯一解，当前进度和最佳时间只保存在本机。</p>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="app-shell footer__inner">
+        <p>本地游戏集 / 04 数独</p>
+        <p>无需账号，无需联网。</p>
+      </div>
+    </footer>
+  </body>
+</html>

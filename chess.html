@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地国际象棋，包含三档电脑对手。">
+    <title>国际象棋｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css"><link rel="stylesheet" href="./base.css"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./chess.css">
+    <script src="./game-tracking.js" defer></script><script src="./completion.js" defer></script><script src="./vendor/chess-browser.js" defer></script><script src="./chess-app.js" defer></script>
+  </head>
+  <body data-game-id="chess">
+    <a class="skip-link" href="#game">跳到国际象棋</a>
+    <header class="topbar"><div class="app-shell topbar__inner"><a class="brand" href="./index.html"><span class="brand__mark">01</span><span>本地游戏集</span></a><nav class="catalog"><a href="./index.html">游戏目录</a><span>/</span><strong>国际象棋</strong></nav><p class="offline-note"><span>离线可玩</span><span>免费</span></p></div></header>
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head"><div class="title-block"><h1 id="game-title">国际象棋</h1><p class="lead">你执白棋，击败黑方电脑。</p></div>
+          <fieldset class="difficulty"><legend>难度</legend><div class="difficulty__options"><input type="radio" name="chess-difficulty" id="chess-easy" value="easy" checked><label for="chess-easy">入门</label><input type="radio" name="chess-difficulty" id="chess-standard" value="standard"><label for="chess-standard">标准</label><input type="radio" name="chess-difficulty" id="chess-hard" value="hard"><label for="chess-hard">进阶</label></div></fieldset>
+        </header>
+        <div class="board-head"><p id="chess-status" class="board-status">白方先行</p><p class="board-size">8 × 8 / 完整规则</p></div>
+        <div class="chess-wrap"><div id="chess-board" class="chess-board" role="grid" aria-label="国际象棋棋盘"></div></div>
+        <div class="board-foot"><p>点击白棋，再点击高亮落点。</p><p>支持王车易位、吃过路兵和升变。</p></div>
+      </section>
+      <aside class="console">
+        <section class="console__section console__section--status"><div class="console__head"><h2>局面</h2><span id="chess-state">进行中</span></div><dl class="metrics"><div class="metric"><dt>总步数</dt><dd id="chess-moves" class="figure">0</dd></div><div class="metric"><dt>当前回合</dt><dd id="chess-turn" class="figure">白方</dd></div><div class="metric"><dt>已吃子力</dt><dd id="chess-captured" class="figure">0</dd></div><div class="metric"><dt>用时</dt><dd id="chess-timer" class="figure">00:00</dd></div></dl><p id="chess-feedback" class="feedback" role="status" aria-live="polite">点击棋子后选择落点。</p><div class="console__actions"><button id="chess-new" class="button button--primary" type="button">新一局</button><button id="chess-undo" class="button button--secondary" type="button" disabled>撤销回合</button></div></section>
+        <section class="console__section"><h2>操作</h2><dl class="shortcuts"><div><dt>选择</dt><dd>点击棋子</dd></div><div><dt>移动</dt><dd>点击亮点</dd></div><div><dt>撤销</dt><dd>U</dd></div><div><dt>新局</dt><dd>R</dd></div></dl><details class="rules"><summary>规则提示</summary><p>兵到达底线会自动升变为后。</p><p>当前版本让你执白棋，电脑执黑棋。</p></details></section>
+      </aside>
+    </main>
+    <footer class="footer"><div class="app-shell footer__inner"><p>本地游戏集 / 07 国际象棋</p><p>无需账号，无需联网。</p></div></footer>
+  </body>
+</html>

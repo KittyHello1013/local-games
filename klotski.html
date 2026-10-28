@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地数字华容道，包含三阶、四阶、五阶数字排序、撤销和自动存档。">
+    <title>华容道｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css">
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./klotski.css">
+    <script src="./game-tracking.js" defer></script>
+    <script src="./completion.js" defer></script>
+    <script src="./klotski-logic.js" defer></script>
+    <script src="./klotski-app.js" defer></script>
+  </head>
+  <body data-game-id="klotski">
+    <a class="skip-link" href="#game">跳到数字华容道</a>
+
+    <header class="topbar">
+      <div class="app-shell topbar__inner">
+        <a class="brand" href="./index.html" aria-label="返回本地游戏集首页">
+          <span class="brand__mark" aria-hidden="true">01</span>
+          <span>本地游戏集</span>
+        </a>
+        <nav class="catalog" aria-label="当前位置">
+          <a href="./index.html">游戏目录</a>
+          <span aria-hidden="true">/</span>
+          <strong>华容道</strong>
+        </nav>
+        <p class="offline-note">
+          <span>离线可玩</span>
+          <span>免费</span>
+        </p>
+      </div>
+    </header>
+
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head">
+          <div class="title-block">
+            <h1 id="game-title">华容道</h1>
+            <p class="lead">滑动数字，按顺序还原。</p>
+          </div>
+
+          <fieldset class="difficulty">
+            <legend>难度</legend>
+            <div class="difficulty__options">
+              <input type="radio" name="number-puzzle-difficulty" id="puzzle-3" value="3" checked>
+              <label for="puzzle-3">三阶</label>
+              <input type="radio" name="number-puzzle-difficulty" id="puzzle-4" value="4">
+              <label for="puzzle-4">四阶</label>
+              <input type="radio" name="number-puzzle-difficulty" id="puzzle-5" value="5">
+              <label for="puzzle-5">五阶</label>
+            </div>
+          </fieldset>
+        </header>
+
+        <div class="board-head">
+          <p id="number-puzzle-status" class="board-status">游戏进行中</p>
+          <p class="board-size"><span id="number-puzzle-size">3 × 3</span> / 顺序排列</p>
+        </div>
+
+        <div class="number-puzzle-wrap">
+          <div id="number-puzzle-board" class="number-puzzle-board" role="grid" aria-label="数字华容道棋盘"></div>
+        </div>
+
+        <div class="number-puzzle-controls" aria-label="移动空格">
+          <button type="button" class="number-puzzle-move" data-direction="up">上</button>
+          <button type="button" class="number-puzzle-move" data-direction="left">左</button>
+          <button type="button" class="number-puzzle-move" data-direction="right">右</button>
+          <button type="button" class="number-puzzle-move" data-direction="down">下</button>
+        </div>
+
+        <div class="board-foot">
+          <p>点击空格旁边的数字即可移动。</p>
+          <p>目标从左到右、从上到下排列，空格留在最后。</p>
+        </div>
+      </section>
+
+      <aside class="console" aria-label="数字华容道控制台">
+        <section class="console__section console__section--status" aria-labelledby="status-title">
+          <div class="console__head">
+            <h2 id="status-title">局面</h2>
+            <span id="number-puzzle-state">进行中</span>
+          </div>
+
+          <dl class="metrics">
+            <div class="metric">
+              <dt>移动步数</dt>
+              <dd id="number-puzzle-moves" class="figure">0</dd>
+            </div>
+            <div class="metric">
+              <dt>用时</dt>
+              <dd id="number-puzzle-timer" class="figure">00:00</dd>
+            </div>
+            <div class="metric">
+              <dt>本档最佳</dt>
+              <dd id="number-puzzle-best" class="figure">暂无</dd>
+            </div>
+            <div class="metric">
+              <dt>棋盘规格</dt>
+              <dd id="number-puzzle-size-card" class="figure">3 × 3</dd>
+            </div>
+          </dl>
+
+          <p id="number-puzzle-feedback" class="feedback" role="status" aria-live="polite">
+            移动空格旁边的数字，按顺序还原。
+          </p>
+
+          <div class="console__actions">
+            <button id="number-puzzle-new" class="button button--primary" type="button">新一局</button>
+            <button id="number-puzzle-undo" class="button button--secondary" type="button" disabled>撤销一步</button>
+          </div>
+        </section>
+
+        <section class="console__section" aria-labelledby="guide-title">
+          <h2 id="guide-title">操作</h2>
+          <dl class="shortcuts">
+            <div>
+              <dt>移动数字</dt>
+              <dd>点击空格旁的数字</dd>
+            </div>
+            <div>
+              <dt>移动空格</dt>
+              <dd>方向键或下方按钮</dd>
+            </div>
+            <div>
+              <dt>撤销</dt>
+              <dd>U 或按钮</dd>
+            </div>
+            <div>
+              <dt>新局</dt>
+              <dd>R</dd>
+            </div>
+          </dl>
+          <details class="rules">
+            <summary>游戏规则</summary>
+            <p>只有与空格相邻的数字可以移动。</p>
+            <p>把数字按 1、2、3 的顺序从左到右、从上到下排好。</p>
+            <p>最后一格保持为空即完成。</p>
+          </details>
+        </section>
+
+        <section class="console__section console__section--note" aria-labelledby="local-title">
+          <h2 id="local-title">自动存档</h2>
+          <p>每局都从可解状态开始，当前棋盘和最佳步数只保存在这台电脑。</p>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="app-shell footer__inner">
+        <p>本地游戏集 / 05 华容道</p>
+        <p>无需账号，无需联网。</p>
+      </div>
+    </footer>
+  </body>
+</html>

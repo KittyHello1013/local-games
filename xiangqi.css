@@ -1,0 +1,170 @@
+.xiangqi-wrap {
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-lg);
+}
+
+.game-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: flex-end;
+}
+
+.xiangqi-board-shell {
+  position: relative;
+  width: min(100%, 36rem);
+}
+
+.xiangqi-board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 10;
+  border: var(--rule-box) solid var(--color-ink);
+  background: var(--color-paper-3);
+  container-type: inline-size;
+}
+
+.xiangqi-grid {
+  position: absolute;
+  inset: 5% 6%;
+  width: 88%;
+  height: 90%;
+  color: var(--color-ink);
+  pointer-events: none;
+}
+
+.xiangqi-points {
+  position: absolute;
+  inset: 5% 6%;
+  pointer-events: none;
+}
+
+.xiangqi-river {
+  position: absolute;
+  inset-inline: 6%;
+  inset-block-start: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 10%;
+  padding-inline: 10%;
+  background: var(--color-paper-3);
+  color: var(--color-ink-2);
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-sm), 4cqi, var(--text-xl));
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+}
+
+.xiangqi-cell {
+  position: absolute;
+  inset-inline-start: calc(var(--col) * 12.5%);
+  inset-block-start: calc(var(--row) * 11.1111%);
+  display: grid;
+  place-items: center;
+  width: 12%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.xiangqi-cell.is-target::after {
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: var(--color-accent);
+  content: "";
+}
+
+.xiangqi-cell.is-selected {
+  outline: var(--rule-box) solid var(--color-accent-3);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+.xiangqi-cell.is-last-from {
+  box-shadow: inset 0 0 0 var(--rule-box) var(--color-accent-3);
+}
+
+.xiangqi-cell.is-last-to {
+  box-shadow: inset 0 0 0 var(--rule-box) var(--color-accent);
+}
+
+.xiangqi-cell:focus-visible {
+  outline: var(--rule-box) solid var(--color-focus);
+  outline-offset: calc(-1 * var(--rule-box));
+}
+
+.xiangqi-piece {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 82%;
+  aspect-ratio: 1;
+  border: var(--rule-bar) solid currentColor;
+  border-radius: 50%;
+  background: var(--color-paper);
+  font-size: clamp(var(--text-sm), 5.5cqi, var(--text-xl));
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.xiangqi-piece.is-w {
+  color: var(--color-accent-2-deep);
+}
+
+.xiangqi-piece.is-b {
+  color: var(--color-ink);
+}
+
+.xiangqi-moving-piece {
+  position: absolute;
+  z-index: var(--z-dropdown);
+  display: grid;
+  place-items: center;
+  border: var(--rule-bar) solid currentColor;
+  border-radius: 50%;
+  background: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: clamp(var(--text-sm), 5.5cqi, var(--text-xl));
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.move-history {
+  display: grid;
+  gap: var(--space-xs);
+  max-height: 15rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style-position: inside;
+}
+
+.move-history li {
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+}
+
+.move-history li:last-child {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+@media (max-width: 40rem) {
+  .xiangqi-wrap,
+  .xiangqi-board-shell {
+    width: calc(100% + (2 * var(--space-md)));
+    margin-inline: calc(-1 * var(--space-md));
+  }
+
+  .xiangqi-board {
+    width: 100%;
+    border-inline-width: 0;
+  }
+}

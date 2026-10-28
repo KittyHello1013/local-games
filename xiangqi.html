@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="无需联网的本地中国象棋，包含三档电脑对手。">
+    <title>中国象棋｜本地游戏集</title>
+    <link rel="stylesheet" href="./tokens.css"><link rel="stylesheet" href="./base.css"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./xiangqi.css">
+    <script src="./game-tracking.js" defer></script><script src="./completion.js" defer></script><script src="./vendor/xiangqi-browser.js" defer></script><script src="./xiangqi-app.js" defer></script>
+  </head>
+  <body data-game-id="xiangqi">
+    <a class="skip-link" href="#game">跳到中国象棋</a>
+    <header class="topbar"><div class="app-shell topbar__inner"><a class="brand" href="./index.html"><span class="brand__mark">01</span><span>本地游戏集</span></a><nav class="catalog"><a href="./index.html">游戏目录</a><span>/</span><strong>中国象棋</strong></nav><p class="offline-note"><span>离线可玩</span><span>免费</span></p></div></header>
+    <main id="game" class="app-shell game-layout">
+      <section class="playfield" aria-labelledby="game-title">
+        <header class="playfield__head"><div class="title-block"><h1 id="game-title">中国象棋</h1><p id="xiangqi-lead" class="lead">你执红棋，对阵黑方电脑。</p></div>
+          <div class="game-options">
+            <fieldset class="difficulty"><legend>模式</legend><div class="difficulty__options"><input type="radio" name="xiangqi-mode" id="xiangqi-ai" value="ai" checked><label for="xiangqi-ai">人机</label><input type="radio" name="xiangqi-mode" id="xiangqi-pvp" value="pvp"><label for="xiangqi-pvp">双人</label></div></fieldset>
+            <fieldset class="difficulty"><legend>电脑强度</legend><div class="difficulty__options"><input type="radio" name="xiangqi-difficulty" id="xiangqi-easy" value="easy" checked><label for="xiangqi-easy">入门</label><input type="radio" name="xiangqi-difficulty" id="xiangqi-standard" value="standard"><label for="xiangqi-standard">标准</label><input type="radio" name="xiangqi-difficulty" id="xiangqi-hard" value="hard"><label for="xiangqi-hard">进阶</label></div></fieldset>
+          </div>
+        </header>
+        <div class="board-head"><p id="xiangqi-status" class="board-status">红方先行</p><p class="board-size">9 × 10 / 完整规则</p></div>
+        <div class="xiangqi-wrap">
+          <div class="xiangqi-board-shell">
+            <div id="xiangqi-board" class="xiangqi-board" role="grid" aria-label="中国象棋棋盘">
+              <svg class="xiangqi-grid" viewBox="0 0 800 900" aria-hidden="true"></svg>
+              <div class="xiangqi-river" aria-hidden="true"><span>楚 河</span><span>汉 界</span></div>
+              <div id="xiangqi-points" class="xiangqi-points"></div>
+            </div>
+          </div>
+        </div>
+        <div class="board-foot"><p>点击红棋，再点击高亮落点。</p><p>包含蹩马腿、塞象眼和将帅照面规则。</p></div>
+      </section>
+      <aside class="console">
+        <section class="console__section console__section--status"><div class="console__head"><h2>局面</h2><span id="xiangqi-state">进行中</span></div><dl class="metrics"><div class="metric"><dt>总步数</dt><dd id="xiangqi-moves" class="figure">0</dd></div><div class="metric"><dt>当前回合</dt><dd id="xiangqi-turn" class="figure">红方</dd></div><div class="metric"><dt>红方棋子</dt><dd id="xiangqi-red" class="figure">16</dd></div><div class="metric"><dt>黑方棋子</dt><dd id="xiangqi-black" class="figure">16</dd></div><div class="metric"><dt>用时</dt><dd id="xiangqi-timer" class="figure">00:00</dd></div></dl><p id="xiangqi-feedback" class="feedback" role="status" aria-live="polite">点击棋子后选择落点。</p><div class="console__actions"><button id="xiangqi-new" class="button button--primary" type="button">新一局</button><button id="xiangqi-undo" class="button button--secondary" type="button" disabled>撤销回合</button></div></section>
+        <section class="console__section"><h2>操作</h2><dl class="shortcuts"><div><dt>选择</dt><dd>点击当前一方的棋子</dd></div><div><dt>移动</dt><dd>点击高亮落点</dd></div><div><dt>撤销</dt><dd>U</dd></div><div><dt>新局</dt><dd>R</dd></div></dl><details class="rules"><summary>规则提示</summary><p>人机模式中你执红棋。</p><p>双人模式已经与棋局状态分离，可直接用于后续在线同步。</p></details></section>
+        <section class="console__section"><h2>走棋记录</h2><ol id="xiangqi-history" class="move-history"><li>尚未走棋</li></ol></section>
+      </aside>
+    </main>
+    <footer class="footer"><div class="app-shell footer__inner"><p>本地游戏集 / 09 中国象棋</p><p>无需账号，无需联网。</p></div></footer>
+  </body>
+</html>
